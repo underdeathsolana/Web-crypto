@@ -92,6 +92,9 @@
         "allow_symbol_change": true,
         "container_id": "tradingview_chart"
       });
+    </script>
+  </div>
+</div>
 <!-- Countdown ke Launch Token -->
 <h2 style="color:#00ffcc; margin-top: 40px;">Countdown Launch Token</h2>
 <div id="countdown" style="font-size: 24px; font-weight: bold; color: #ff00cc;"></div>
@@ -118,9 +121,7 @@
     document.getElementById("countdown").innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }, 1000);
 </script>
-    </script>
-  </div>
-</div>
+
   <script>
   async function getPrices() {
     const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana,ethereum,binancecoin,shiba-inu&vs_currencies=usd");
