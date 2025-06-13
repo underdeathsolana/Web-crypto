@@ -57,23 +57,30 @@
   </style>
 </head>
 <body>
-  <h1>Dunia Crypto</h1>
-  <div class="price" id="sol-price">Loading harga SOL...</div>
+  <h1>Selamat datang di underdeathsol</h1>
+  <div class="price" id="sol-price">Harga SOL: loading...</div>
+<div class="price" id="eth-price">Harga ETH: loading...</div>
+<div class="price" id="bnb-price">Harga BNB: loading...</div>
+<div class="price" id="shib-price">Harga SHIB: loading...</div>
 
   <div class="buttons">
-    <a href="https://t.me/NAMA_CHANNEL" target="_blank">Join Telegram</a>
-    <a href="https://twitter.com/NAMA_TWITTER" target="_blank">Follow Twitter</a>
+    <a href="https://t.me/underdeathsol" target="_blank">Join Telegram</a>
+    <a href="https://x.com/LilFID12?t=tBPJ-N9h_S4-O4Ltl5Khkg&s=09" target="_blank">Follow Twitter</a>
   </div>
 
   <script>
-    async function getSolPrice() {
-      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
-      const data = await res.json();
-      document.getElementById("sol-price").innerText = `Harga SOL: $${data.solana.usd}`;
-    }
+  async function getPrices() {
+    const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana,ethereum,binancecoin,shiba-inu&vs_currencies=usd");
+    const data = await res.json();
 
-    getSolPrice();
-    setInterval(getSolPrice, 10000); // refresh tiap 10 detik
-  </script>
+    document.getElementById("sol-price").innerText = `Harga SOL: $${data.solana.usd}`;
+    document.getElementById("eth-price").innerText = `Harga ETH: $${data.ethereum.usd}`;
+    document.getElementById("bnb-price").innerText = `Harga BNB: $${data.binancecoin.usd}`;
+    document.getElementById("shib-price").innerText = `Harga SHIB: $${data["shiba-inu"].usd}`;
+  }
+
+  getPrices();
+  setInterval(getPrices, 10000);
+</script>
 </body>
 </html>
