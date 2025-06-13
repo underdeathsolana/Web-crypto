@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Token Call Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #00ffcc;
+      font-family: monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: #ffffff;
+      text-align: center;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+    }
+    input {
+      width: 70%;
+    }
+    button {
+      background-color: #00ffcc;
+      color: #000;
+      cursor: pointer;
+    }
+    #result {
+      white-space: pre-wrap;
+      margin-top: 20px;
+      border-top: 1px solid #444;
+      padding-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 AI Token Analyzer</h1>
+
+  <form id="callForm">
+    <input type="text" id="tokenInput" placeholder="Masukkan contract address..." required>
+    <button type="submit">🚀 Analisa Token</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("callForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const token = document.getElementById("tokenInput").value.trim();
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerText = "⏳ Mengambil data & menganalisa...";
+
+      try {
+        const chain = "solana"; // Ganti kalau bukan Solana (bisa: ethereum, bsc, avax, dll)
+
+        // 🔹 FETCH DATA dari GeckoTerminal
+        const raw = await fetch(`https://api.geckoterminal.com/api/v2/networks/${chain}/tokens/${token}`);
+        const json = await raw.json();
+        const attr = json.data.attributes;
+
+        const nama = attr.name || "N/A";
+        const symbol = attr.symbol || "N/A";
+        const price = attr.price_usd || "N/A";
+        const liquidity = attr.liquidity_usd || "N/A";
+        const volume24 = attr.volume_usd.h24 || "N/A";
+
+        const summary = `
+🧾 ${nama} (${symbol})
+💵 Harga: $${price}
+💧 Likuiditas: $${liquidity}
+📈 Volume 24h: $${volume24}
+        `;
+
+        // 🔹 KIRIM KE GPT
+        const gptResp = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearersk-proj-NyJ8KPsYtdhGEJqjFo0R7uss89hcA1GgECjYySg6beI_R13k0LekTQjQmvDx4xRt5WBJKIEn23T3BlbkFJpbpSuaVKCoGWZo4Mj21CCHlNzP1EqxJ5ObTsnwnGIGLJxeA8m89Ei755RajmWQnIHcvcI9ZAsA" // Ganti dengan API KEY kamu!
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [{
+              role: "user",
+              content: `Berikan analisa untuk token ini berdasarkan data berikut:
+Nama: ${nama}
+Harga: $${price}
+Likuiditas: $${liquidity}
+Volume 24h: $${volume24}
+Sebutkan potensi, resiko, dan kelayakan investasi token ini.`
+            }]
+          })
+        });
+
+        const gptData = await gptResp.json();
+        const ai = gptData.choices[0].message.content;
+
+        resultDiv.innerHTML = `${summary}\n\n🤖 <b>AI ANALISIS:</b>\n${ai}`;
+      } catch (err) {
+        console.error(err);
+        resultDiv.innerText = "⚠️ Gagal mengambil data atau menghubungi AI. Coba lagi atau periksa koneksi / contract.";
+      }
+    });
+  </script>
+</body>
+</html>
