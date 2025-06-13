@@ -1,43 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Crypto Call Hunter</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dunia Crypto</title>
   <style>
     body {
-      background-color: #0d1117;
-      color: #c9d1d9;
-      font-family: 'Arial', sans-serif;
+      background-color: #0f0f0f;
+      color: #00ffcc;
+      font-family: 'Courier New', monospace;
       margin: 0;
       padding: 20px;
+      text-align: center;
     }
+
     h1 {
-      color: #58a6ff;
+      font-size: 2em;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
     }
-    .card {
-      background-color: #161b22;
-      padding: 15px;
+
+    .price {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+    }
+
+    .buttons a {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px;
+      background: #1f1f1f;
+      border: 2px solid #00ffcc;
       border-radius: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #30363d;
+      color: #00ffcc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .buttons a:hover {
+      background-color: #00ffcc;
+      color: #0f0f0f;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      .price {
+        font-size: 1em;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>🚀 Crypto Call Hunter</h1>
-  <div class="card">
-    <h2>$BOLT</h2>
-    <p><strong>Contract:</strong> 0x123...abc</p>
-    <p><strong>Buy Zone:</strong> 0.00023 - 0.00028</p>
-    <p><strong>Target:</strong> 0.0005 / 0.0007 / 0.001</p>
-    <p><strong>Risk:</strong> Medium</p>
+  <h1>Dunia Crypto</h1>
+  <div class="price" id="sol-price">Loading harga SOL...</div>
+
+  <div class="buttons">
+    <a href="https://t.me/NAMA_CHANNEL" target="_blank">Join Telegram</a>
+    <a href="https://twitter.com/NAMA_TWITTER" target="_blank">Follow Twitter</a>
   </div>
-  <div class="card">
-    <h2>$NEKO</h2>
-    <p><strong>Contract:</strong> 0x456...def</p>
-    <p><strong>Buy Zone:</strong> 0.0031 - 0.0035</p>
-    <p><strong>Target:</strong> 0.004 / 0.006 / 0.01</p>
-    <p><strong>Risk:</strong> High</p>
-  </div>
+
+  <script>
+    async function getSolPrice() {
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd");
+      const data = await res.json();
+      document.getElementById("sol-price").innerText = `Harga SOL: $${data.solana.usd}`;
+    }
+
+    getSolPrice();
+    setInterval(getSolPrice, 10000); // refresh tiap 10 detik
+  </script>
 </body>
 </html>
