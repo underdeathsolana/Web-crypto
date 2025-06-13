@@ -59,11 +59,12 @@
 <marquee style="color:#ff9900; font-size: 20px; font-weight: bold; margin: 20px 0;">
   🚀 TOKEN CALL: $SOL | $ETH | $BNB | $SHIB | New gem coming soon! 🔥
 </marquee>
-<!-- Toggle Dark/Light Mode -->
-<div style="margin-top: 20px;">
-  <button onclick="toggleTheme()" style="padding: 10px 20px; font-size: 16px; background: #00ffcc; color: #000; border: none; border-radius: 5px; cursor: pointer;">
-    🌙 Toggle Dark/Light Mode
-  </button>
+<!-- Toggle Theme Button -->
+<button id="themeToggle"
+  onclick="toggleTheme()"
+  style="position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 10px; background: none; border: none; font-size: 24px; cursor: pointer;">
+  🌙
+</button>
 </div>
 </head>
 <body>
@@ -141,6 +142,49 @@
 
   getPrices();
   setInterval(getPrices, 10000);
+</script>
+<script>
+  function toggleTheme() {
+    const body = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+    const isDark = body.classList.contains('dark');
+
+    body.style.transition = "all 0.5s ease"; // Animasi transisi
+
+    if (isDark) {
+      body.classList.remove('dark');
+      body.style.backgroundColor = "#ffffff";
+      body.style.color = "#000000";
+      toggleBtn.innerText = "🌙";
+      localStorage.setItem("theme", "light");
+    } else {
+      body.classList.add('dark');
+      body.style.backgroundColor = "#0d0d0d";
+      body.style.color = "#ffffff";
+      toggleBtn.innerText = "🌞";
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  // Auto load theme & icon saat buka ulang
+  window.onload = () => {
+    const savedTheme = localStorage.getItem("theme");
+    const body = document.body;
+    const toggleBtn = document.getElementById('themeToggle');
+    body.style.transition = "all 0.5s ease"; // Animasi transisi
+
+    if (savedTheme === "light") {
+      body.classList.remove('dark');
+      body.style.backgroundColor = "#ffffff";
+      body.style.color = "#000000";
+      toggleBtn.innerText = "🌙";
+    } else {
+      body.classList.add('dark');
+      body.style.backgroundColor = "#0d0d0d";
+      body.style.color = "#ffffff";
+      toggleBtn.innerText = "🌞";
+    }
+  };
 </script>
 </body>
 </html>
