@@ -1,54 +1,150 @@
-body {
+/* Reset dasar */
+* {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #0d1117;
-  color: #c9d1d9;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header {
-  background: #161b22;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 999;
+/* Body dan tema awal */
+body {
+  background-color: #0f0f0f;
+  color: #00ffcc;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.5s ease;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #58a6ff;
+/* Mode terang */
+body.light {
+  background-color: #ffffff;
+  color: #000000;
 }
 
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
+/* Judul utama */
+h1 {
+  font-size: 2em;
+  text-shadow: 0 0 10px #00ffcc;
 }
 
-nav a {
-  color: #c9d1d9;
+/* Harga coin */
+.price {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+/* Tombol sosial */
+.buttons {
+  margin-top: 30px;
+}
+
+.buttons a {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 10px;
+  background: #1f1f1f;
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  color: #00ffcc;
   text-decoration: none;
   transition: 0.3s;
 }
 
-nav a:hover {
-  color: #58a6ff;
+.buttons a:hover {
+  background-color: #00ffcc;
+  color: #0f0f0f;
 }
 
-main {
-  padding: 2rem;
+/* Tombol toggle tema */
+#themeToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-section {
-  margin-bottom: 3rem;
+/* AI Analyzer Button */
+.fixed {
+  position: fixed;
+}
+.bottom-6 {
+  bottom: 24px;
+}
+.right-6 {
+  right: 24px;
+}
+.z-50 {
+  z-index: 50;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #161b22;
-  color: #8b949e;
+.bg-indigo-600 {
+  background-color: #4f46e5;
+}
+.bg-indigo-600:hover {
+  background-color: #4338ca;
+}
+.bg-green-600 {
+  background-color: #16a34a;
+}
+.bg-green-600:hover {
+  background-color: #15803d;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.rounded-full {
+  border-radius: 9999px;
+}
+.rounded-xl {
+  border-radius: 1rem;
+}
+.shadow-xl {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.transition {
+  transition: all 0.3s ease;
+}
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+/* Countdown */
+#countdown {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff00cc;
+  margin-top: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
+  .price {
+    font-size: 1em;
+  }
+
+  #themeToggle {
+    font-size: 20px;
+  }
 }
